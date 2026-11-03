@@ -90,6 +90,3 @@
     @apply bg-background text-foreground font-body;
   }
 }
-#base44-badge {
-  display: none !important;
-}
