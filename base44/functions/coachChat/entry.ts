@@ -1,4 +1,3 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.8.54';
 import { toISODate, addDays } from '../../shared/dates.ts';
 import { geminiGenerate } from '../../shared/gemini.ts';
 
