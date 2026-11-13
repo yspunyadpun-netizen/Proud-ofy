@@ -1,33 +1,22 @@
 
-import { appParams } from '@/lib/app-params';
+import { appParams } from "@/lib/app-params";
 
 const apiBaseUrl = appParams.apiBaseUrl;
 
 async function request(path, options = {}) {
-  if (!apiBaseUrl) {
-    throw new Error('عنوان API غير مُعد.');
-  }
+  const response = await fetch(`${apiBaseUrl}/api/gemini`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(options.body || {}),
+  });
 
-  const response = await fetch(
-    `${apiBaseUrl.replace(/\/$/, '')}${path}`,
-    {
-      ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-    }
-  );
-
-  const data = await response.json().catch(() => ({}));
+  const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.error || 'حدث خطأ في الاتصال بالخادم.');
+    throw new Error(data.error || "Gemini API error");
   }
 
   return data;
 }
 
-export const api = {
-  request,
-};
+export const api = { request };
