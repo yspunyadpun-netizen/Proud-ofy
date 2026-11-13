@@ -1,22 +1,13 @@
 
+import { createClient } from "@base44/sdk";
 import { appParams } from "@/lib/app-params";
 
-const apiBaseUrl = appParams.apiBaseUrl;
+const { appId, token, functionsVersion, appBaseUrl } = appParams;
 
-async function request(path, options = {}) {
-  const response = await fetch(`${apiBaseUrl}/api/gemini`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(options.body || {}),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.error || "Gemini API error");
-  }
-
-  return data;
-}
-
-export const api = { request };
+export const base44 = createClient({
+  appId,
+  token,
+  functionsVersion,
+  serverUrl: "",
+  appBaseUrl,
+});
